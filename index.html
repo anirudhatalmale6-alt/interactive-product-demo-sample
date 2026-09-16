@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TERRA — Interactive Product Demo</title>
+<meta name="description" content="An interactive, scroll-driven product demo: explore the TERRA field console panel by panel.">
+<meta name="theme-color" content="#0C0E0A">
+<link rel="preload" href="assets/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230C0E0A'/><circle cx='16' cy='16' r='6' fill='%23C8F04C'/></svg>">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">TERRA</span>
+  </a>
+  <p class="topbar__tag">Sample build &middot; interactive product demo</p>
+  <a class="topbar__cta" href="#handoff">How it ships <span aria-hidden="true">&rarr;</span></a>
+</header>
+
+<main id="top">
+
+  <!-- ─────────────────────────────  HERO  ───────────────────────────── -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow reveal" style="--d:0ms">Field console &nbsp;/&nbsp; v4 &nbsp;/&nbsp; vineyard &amp; orchard</p>
+      <h1 class="hero__title">
+        <span class="reveal" style="--d:70ms">Every root zone,</span>
+        <span class="reveal" style="--d:140ms">on one <em>quiet</em></span>
+        <span class="reveal" style="--d:210ms">screen.</span>
+      </h1>
+      <p class="hero__lede reveal" style="--d:300ms">
+        TERRA reads moisture, temperature and flow across every block you farm &mdash;
+        then tells you the one thing worth doing today. Scroll to walk the console,
+        or jump straight to a panel.
+      </p>
+      <div class="hero__actions reveal" style="--d:380ms">
+        <a class="btn btn--primary" href="#step-1">Start the tour <span aria-hidden="true">&darr;</span></a>
+        <a class="btn btn--ghost" href="#why">Why it matters</a>
+      </div>
+      <dl class="hero__stats reveal" style="--d:460ms">
+        <div><dt>Blocks watched</dt><dd>24</dd></div>
+        <div><dt>Water saved</dt><dd>31%</dd></div>
+        <div><dt>Sensor uptime</dt><dd>99.4%</dd></div>
+      </dl>
+    </div>
+    <p class="hero__scroll" aria-hidden="true"><span></span>scroll</p>
+  </section>
+
+  <!-- ─────────────────────────────  TOUR  ───────────────────────────── -->
+  <section class="tour" id="tour" aria-label="Guided product tour">
+
+    <!-- sticky canvas -->
+    <div class="tour__stage">
+      <div class="stage__sticky">
+
+        <div class="console" id="console">
+          <div class="console__chrome">
+            <span class="dot" aria-hidden="true"></span>
+            <span class="console__label" id="console-label">01 &middot; Live moisture</span>
+            <span class="console__meta">TERRA&nbsp;OS&nbsp;4.2</span>
+          </div>
+
+          <div class="console__screen" id="screen">
+
+            <!-- PANEL 1 ─ live moisture -->
+            <div class="panel is-active" data-panel="1" role="group" aria-label="Live moisture panel">
+              <div class="p1">
+                <div class="p1__head">
+                  <div>
+                    <p class="micro">Block 7 &middot; Syrah &middot; north slope</p>
+                    <p class="p1__big"><span id="m-value">28.4</span><span class="unit">%</span></p>
+                    <p class="micro micro--dim">volumetric water content &middot; 40&nbsp;cm probe</p>
+                  </div>
+                  <div class="p1__legend">
+                    <button class="chip is-on" data-series="s1" type="button"><i style="--c:var(--acid)"></i>20 cm</button>
+                    <button class="chip is-on" data-series="s2" type="button"><i style="--c:var(--sky)"></i>40 cm</button>
+                    <button class="chip is-on" data-series="s3" type="button"><i style="--c:var(--clay)"></i>60 cm</button>
+                  </div>
+                </div>
+                <svg class="chart" id="chart-main" viewBox="0 0 620 230" preserveAspectRatio="none" role="img" aria-label="Soil moisture over fourteen days at three depths">
+                  <defs>
+                    <linearGradient id="fill1" x1="0" y1="0" x2="0" y2="1">
+                      <stop class="stop-a" offset="0%"/>
+                      <stop class="stop-b" offset="100%"/>
+                    </linearGradient>
+                  </defs>
+                  <g class="chart__grid" id="grid-main"></g>
+                  <g id="series-main"></g>
+                  <line class="chart__cursor" id="cursor-main" x1="0" y1="8" x2="0" y2="222"/>
+                </svg>
+                <div class="p1__axis micro micro--dim" id="axis-main"></div>
+              </div>
+              <button class="hot" style="--x:38%; --y:20%; --mx:47%; --my:17%" data-tip="Current reading, updated every 90 seconds" type="button" aria-label="Hotspot: current reading"></button>
+              <button class="hot" style="--x:72%; --y:68%" data-tip="Drag across the chart to scrub 14 days of history" type="button" aria-label="Hotspot: chart history"></button>
+            </div>
+
+            <!-- PANEL 2 ─ block map -->
+            <div class="panel" data-panel="2" role="group" aria-label="Block map panel">
+              <div class="p2">
+                <svg class="map" viewBox="0 0 300 250" role="group" aria-label="Interactive map of vineyard blocks">
+                  <g id="blocks"></g>
+                </svg>
+                <div class="p2__read">
+                  <p class="micro">Selected block</p>
+                  <p class="p2__name" id="b-name">Block 7</p>
+                  <p class="p2__var micro micro--dim" id="b-var">Syrah &middot; 4.2 ha &middot; planted 2011</p>
+                  <div class="meter" role="img" aria-label="Moisture level">
+                    <div class="meter__bar"><span id="b-bar" style="width:52%"></span></div>
+                    <p class="micro"><span id="b-val">28.4%</span> moisture</p>
+                  </div>
+                  <p class="tagline" id="b-state">Holding. No action today.</p>
+                  <p class="micro micro--dim p2__hint">Tap any parcel to switch blocks.</p>
+                </div>
+              </div>
+              <button class="hot" style="--x:30%; --y:26%" data-tip="Colour = how thirsty the block is right now" type="button" aria-label="Hotspot: parcel colour"></button>
+              <button class="hot" style="--x:80%; --y:56%" data-tip="The read-out follows whichever parcel you pick" type="button" aria-label="Hotspot: read-out"></button>
+            </div>
+
+            <!-- PANEL 3 ─ schedule -->
+            <div class="panel" data-panel="3" role="group" aria-label="Irrigation schedule panel">
+              <div class="p3">
+                <div class="p3__head">
+                  <p class="micro">Tonight&rsquo;s irrigation plan</p>
+                  <p class="p3__total"><span id="w-total">64</span><span class="unit">m&sup3;</span></p>
+                </div>
+                <div class="p3__rows" id="zones"></div>
+                <div class="p3__ruler micro micro--dim" aria-hidden="true">
+                  <span></span>
+                  <div><span>18:00</span><span class="opt">21:00</span><span>00:00</span><span class="opt">03:00</span><span>06:00</span></div>
+                </div>
+              </div>
+              <button class="hot" style="--x:84%; --y:30%" data-tip="Total draw updates as you switch zones on and off" type="button" aria-label="Hotspot: total draw"></button>
+              <button class="hot" style="--x:62%; --y:63%" data-tip="Bars are the actual watering windows TERRA picked" type="button" aria-label="Hotspot: watering windows"></button>
+            </div>
+
+            <!-- PANEL 4 ─ alerts -->
+            <div class="panel" data-panel="4" role="group" aria-label="Alert threshold panel">
+              <div class="p4">
+                <div class="p4__head">
+                  <div>
+                    <p class="micro">Alert when moisture drops below</p>
+                    <p class="p4__big"><span id="t-value">26</span><span class="unit">%</span></p>
+                  </div>
+                  <p class="pill" id="t-count">2 alerts last 14 days</p>
+                </div>
+                <svg class="chart chart--sm" id="chart-alert" viewBox="0 0 620 170" preserveAspectRatio="none" role="img" aria-label="Moisture history against the alert threshold">
+                  <g class="chart__grid" id="grid-alert"></g>
+                  <path id="alert-line" class="chart__line" style="--c:var(--sky)"></path>
+                  <g id="alert-hits"></g>
+                  <line id="thresh" class="thresh"></line>
+                </svg>
+                <label class="slider">
+                  <span class="micro micro--dim">Drier</span>
+                  <input type="range" id="thresh-input" min="16" max="34" value="26" step="1" aria-label="Alert threshold, percent moisture">
+                  <span class="micro micro--dim">Wetter</span>
+                </label>
+              </div>
+              <button class="hot" style="--x:82%; --y:18%" data-tip="Count re-runs against real history as you drag" type="button" aria-label="Hotspot: alert count"></button>
+              <button class="hot" style="--x:40%; --y:82%" data-tip="Move the slider — the rule is live, not a picture" type="button" aria-label="Hotspot: threshold slider"></button>
+            </div>
+
+            <!-- PANEL 5 ─ report -->
+            <div class="panel" data-panel="5" role="group" aria-label="Report panel">
+              <div class="p5">
+                <div class="p5__doc" id="doc">
+                  <div class="p5__doc-head">
+                    <span class="micro" id="doc-kind">PDF</span>
+                    <span class="micro micro--dim">Sep 2026</span>
+                  </div>
+                  <p class="p5__doc-title">Season water report</p>
+                  <div class="p5__lines" aria-hidden="true">
+                    <i style="--w:92%"></i><i style="--w:74%"></i><i style="--w:86%"></i>
+                    <i style="--w:48%"></i><i style="--w:80%"></i><i style="--w:62%"></i>
+                    <i style="--w:88%"></i><i style="--w:70%"></i><i style="--w:54%"></i>
+                  </div>
+                  <div class="p5__spark" aria-hidden="true"><svg viewBox="0 0 220 44" preserveAspectRatio="none"><path id="doc-spark"></path></svg></div>
+                </div>
+                <div class="p5__side">
+                  <p class="micro">Export as</p>
+                  <div class="p5__formats" id="formats">
+                    <button class="fmt is-on" data-fmt="PDF" type="button">PDF</button>
+                    <button class="fmt" data-fmt="CSV" type="button">CSV</button>
+                    <button class="fmt" data-fmt="XLSX" type="button">XLSX</button>
+                  </div>
+                  <p class="micro micro--dim p5__note">Compliance-ready, signed, and mailed to your agronomist on the 1st.</p>
+                  <button class="btn btn--primary btn--sm" id="dl" type="button">Generate <span aria-hidden="true">&rarr;</span></button>
+                  <p class="p5__done micro" id="dl-done" hidden>&check; season-report.pdf ready</p>
+                </div>
+              </div>
+              <button class="hot" style="--x:24%; --y:74%; --mx:78%; --my:31%" data-tip="Every figure traces back to a raw sensor row" type="button" aria-label="Hotspot: traceability"></button>
+              <button class="hot" style="--x:76%; --y:34%; --mx:62%; --my:68%" data-tip="Same data, three formats — pick what your auditor wants" type="button" aria-label="Hotspot: formats"></button>
+            </div>
+
+          </div><!-- /screen -->
+        </div><!-- /console -->
+
+        <!-- controls -->
+        <nav class="rail" aria-label="Tour navigation">
+          <button class="rail__arrow" id="prev" type="button" aria-label="Previous step">&larr;</button>
+          <ol class="rail__list" id="rail"></ol>
+          <button class="rail__arrow" id="next" type="button" aria-label="Next step">&rarr;</button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- steps -->
+    <div class="tour__steps">
+      <article class="step" id="step-1" data-step="1">
+        <p class="step__num">01</p>
+        <h2 class="step__title">It reads the soil, not the forecast.</h2>
+        <p class="step__body">Three probes per block, at 20, 40 and 60 centimetres. You see where the water actually is &mdash; not where an app guessed it might be. Fourteen days of history sit behind every number.</p>
+        <ul class="step__list"><li>90-second sampling</li><li>Battery life measured in seasons</li><li>Works offline, syncs when it can</li></ul>
+      </article>
+
+      <article class="step" id="step-2" data-step="2">
+        <p class="step__num">02</p>
+        <h2 class="step__title">Every block, at a glance.</h2>
+        <p class="step__body">The map is the index. Thirsty parcels warm up, healthy ones stay quiet, and you can go from twenty-four blocks to one root zone in a single tap.</p>
+        <ul class="step__list"><li>Colour tracks deficit, not rainfall</li><li>Drawn from your own boundary file</li><li>Tap a parcel to try it</li></ul>
+      </article>
+
+      <article class="step" id="step-3" data-step="3">
+        <p class="step__num">03</p>
+        <h2 class="step__title">A plan you can argue with.</h2>
+        <p class="step__body">TERRA proposes tonight&rsquo;s windows and the draw they&rsquo;ll cost. Switch a zone off and the total moves with you &mdash; nothing is locked until you say so.</p>
+        <ul class="step__list"><li>Per-zone override</li><li>Live cost in cubic metres</li><li>Pushes straight to your controller</li></ul>
+      </article>
+
+      <article class="step" id="step-4" data-step="4">
+        <p class="step__num">04</p>
+        <h2 class="step__title">Set the rule. See it back-tested.</h2>
+        <p class="step__body">Drag the threshold and TERRA replays the last fortnight against it, so you know how noisy a rule is before it starts waking you at four in the morning.</p>
+        <ul class="step__list"><li>Instant back-test</li><li>Quiet hours respected</li><li>SMS, push, or nothing at all</li></ul>
+      </article>
+
+      <article class="step" id="step-5" data-step="5">
+        <p class="step__num">05</p>
+        <h2 class="step__title">Paperwork that writes itself.</h2>
+        <p class="step__body">Water-use reporting is a legal chore. TERRA keeps the audit trail as it goes and hands you the finished document on the first of the month.</p>
+        <ul class="step__list"><li>PDF, CSV or XLSX</li><li>Signed and timestamped</li><li>Five years of retention</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────  WHY  ───────────────────────────── -->
+  <section class="why" id="why">
+    <p class="eyebrow">Why growers keep it</p>
+    <div class="why__grid">
+      <article class="why__card">
+        <p class="why__num">31%</p>
+        <h3>Less water, same fruit</h3>
+        <p>Irrigating to measured deficit instead of a calendar cut draw by roughly a third across the 2025 season.</p>
+      </article>
+      <article class="why__card">
+        <p class="why__num">4&nbsp;min</p>
+        <h3>Morning round, done</h3>
+        <p>One screen replaces the walk, the spreadsheet and the three phone calls that used to start every day.</p>
+      </article>
+      <article class="why__card">
+        <p class="why__num">0</p>
+        <h3>Subscriptions to chase</h3>
+        <p>Hardware is yours, data is yours, exports are open. Nothing holds your season hostage.</p>
+      </article>
+    </div>
+    <figure class="quote">
+      <blockquote>&ldquo;I stopped irrigating on Tuesdays because it was Tuesday.&rdquo;</blockquote>
+      <figcaption>&mdash; a grower, somewhere with better weather than here</figcaption>
+    </figure>
+  </section>
+
+  <!-- ─────────────────────────────  HANDOFF  ───────────────────────────── -->
+  <section class="handoff" id="handoff">
+    <div class="handoff__inner">
+      <p class="eyebrow">About this page</p>
+      <h2>This is a sample, built to be looked at closely.</h2>
+      <p class="handoff__body">
+        TERRA is invented &mdash; the product, the numbers, the grower. Everything else is real:
+        hand-written HTML, CSS and JavaScript, no framework, no build step, no third-party requests.
+        The fonts are self-hosted and subset, the charts and the map are inline SVG drawn from data
+        at runtime, and the whole page weighs a little over a hundred kilobytes.
+      </p>
+      <ul class="handoff__facts">
+        <li><span>Stack</span>Vanilla HTML5 / CSS3 / ES6 &mdash; drop it on any host</li>
+        <li><span>Weight</span>~110&nbsp;KB total, 5 requests, no CDN</li>
+        <li><span>Navigation</span>Scroll, click the rail, or use &larr; &rarr;</li>
+        <li><span>Responsive</span>320&nbsp;px phone to 4K, one codebase</li>
+        <li><span>Access</span>Real buttons, focus rings, reduced-motion respected</li>
+        <li><span>Embed</span>Whole page, or one section in an iframe</li>
+      </ul>
+      <p class="handoff__sign">Swap the copy, the palette and the five panels for your product and this becomes your demo.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>TERRA &mdash; fictional product, real build. <span>Sample for an interactive product demo brief.</span></p>
+</footer>
+
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>
